@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLM Inference Benchmark Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">LLM Inference Benchmark & Serving Lab</p>
+        <h1>Benchmark dashboard</h1>
+      </div>
+      <span id="status" class="status">Loading data…</span>
+    </header>
+    <section class="metrics" aria-label="Summary metrics">
+      <article><span>Throughput</span><strong id="throughput">—</strong><small>tokens/sec</small></article>
+      <article><span>Median latency</span><strong id="latency">—</strong><small>ms/token</small></article>
+      <article><span>GPU memory</span><strong id="memory">—</strong><small>MiB peak</small></article>
+    </section>
+    <section class="charts">
+      <article><h2>Throughput by run</h2><canvas id="throughputChart"></canvas></article>
+      <article><h2>Latency percentiles</h2><canvas id="latencyChart"></canvas></article>
+      <article class="wide"><h2>GPU memory</h2><canvas id="memoryChart"></canvas></article>
+    </section>
+  </main>
+  <script src="dashboard.js"></script>
+</body>
+</html>

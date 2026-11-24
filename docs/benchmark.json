@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "data_type": "sample",
+    "sample_disclaimer": "SYNTHETIC DEMONSTRATION DATA — not measured on Nebius or any GPU."
+  },
+  "summary": {
+    "throughput_tokens_per_sec": 1842.5,
+    "latency_ms_per_token": 1.74,
+    "latency_p50_ms": 1.65,
+    "latency_p90_ms": 2.18,
+    "latency_p99_ms": 3.42,
+    "peak_gpu_memory_mb": 8420
+  },
+  "benchmarks": [
+    {"label": "7B / fp16", "throughput_tokens_per_sec": 1842.5, "latency_p50_ms": 1.65, "peak_gpu_memory_mb": 8420},
+    {"label": "7B / int8", "throughput_tokens_per_sec": 2516.2, "latency_p50_ms": 1.21, "peak_gpu_memory_mb": 5040},
+    {"label": "13B / fp16", "throughput_tokens_per_sec": 1024.8, "latency_p50_ms": 2.93, "peak_gpu_memory_mb": 14840},
+    {"label": "13B / int8", "throughput_tokens_per_sec": 1375.4, "latency_p50_ms": 2.19, "peak_gpu_memory_mb": 8420}
+  ]
+}
