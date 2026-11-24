@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live sample benchmark</title>
+  <link rel="stylesheet" href="../dashboard/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main>
+    <header><div><p class="eyebrow">SAMPLE / DEMO ONLY</p><h1>Benchmark dashboard</h1></div><span id="status" class="status">Loading sample…</span></header>
+    <section class="metrics" aria-label="Summary metrics">
+      <article><span>Throughput</span><strong id="throughput">—</strong><small>tokens/sec</small></article>
+      <article><span>Median latency</span><strong id="latency">—</strong><small>ms/token</small></article>
+      <article><span>GPU memory</span><strong id="memory">—</strong><small>MiB peak</small></article>
+    </section>
+    <section class="charts">
+      <article><h2>Throughput by configuration</h2><canvas id="throughputChart"></canvas></article>
+      <article><h2>Latency p50</h2><canvas id="latencyChart"></canvas></article>
+      <article class="wide"><h2>Peak GPU memory</h2><canvas id="memoryChart"></canvas></article>
+    </section>
+  </main>
+  <script>
+    fetch("benchmark.json").then(r => r.json()).then(load).catch(() => document.getElementById("status").textContent="Sample unavailable");
+    const text=(id,v)=>document.getElementById(id).textContent=v;
+    function draw(id,type,labels,values,label,color){
+      new Chart(document.getElementById(id),{type,data:{labels,datasets:[{label,data:values,borderColor:color,backgroundColor:color+"33",tension:.25,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:"#99a4b8"}}},scales:{x:{ticks:{color:"#99a4b8"},grid:{color:"#263044"}},y:{beginAtZero:true,ticks:{color:"#99a4b8"},grid:{color:"#263044"}}}}});
+    }
+    function load(data){
+      const s=data.summary,b=data.benchmarks;
+      document.getElementById("status").textContent="SYNTHETIC DEMO · NOT MEASURED";
+      text("throughput",s.throughput_tokens_per_sec.toFixed(1)); text("latency",s.latency_ms_per_token.toFixed(2)); text("memory",s.peak_gpu_memory_mb.toFixed(0));
+      const labels=b.map(x=>x.label);
+      draw("throughputChart","bar",labels,b.map(x=>x.throughput_tokens_per_sec),"Tokens/sec","#7c5cff");
+      draw("latencyChart","line",labels,b.map(x=>x.latency_p50_ms),"p50 latency (ms/token)","#38bdf8");
+      draw("memoryChart","bar",labels,b.map(x=>x.peak_gpu_memory_mb),"Peak GPU memory (MiB)","#34d399");
+    }
+  </script>
+</body>
+</html>

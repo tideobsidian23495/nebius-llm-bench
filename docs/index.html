@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b12">
+  <title>LLM Inference Benchmark & Serving Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav><a class="brand" href="#top">LLM·BENCH</a><div><a href="#project">Project</a><a href="#gpu">GPU</a><a href="#demo">Demo</a><a href="#builder">Builder</a></div></nav>
+  <main id="top">
+    <section class="hero">
+      <p class="kicker">Nebius Builders application</p>
+      <h1>LLM Inference<br><span>Benchmark &amp; Serving Lab</span></h1>
+      <p class="lede">Measure what happens at the serving layer: throughput, tail latency, GPU memory, model scale, and quantization.</p>
+      <div class="actions"><a class="primary" href="#demo">Explore live demo</a><a href="https://github.com/tideobsidian23495/nebius-llm-bench">View source ↗</a></div>
+    </section>
+
+    <section id="project" class="content">
+      <div class="section-heading"><p>01 / What it does</p><h2>A reproducible lab for real inference decisions.</h2></div>
+      <div class="cards">
+        <article><span>01</span><h3>Hugging Face serving</h3><p>Loads local or remote causal LLMs with batched generation and a tiny CPU-friendly default.</p></article>
+        <article><span>02</span><h3>Serving metrics</h3><p>Captures tokens/sec, p50/p90/p99 per-token latency, warmups, batch size, and raw run samples.</p></article>
+        <article><span>03</span><h3>GPU comparisons</h3><p>Compare fp32, fp16, and int8 across model sizes and observe peak CUDA memory.</p></article>
+      </div>
+    </section>
+
+    <section id="gpu" class="gpu content">
+      <div class="section-heading"><p>02 / Why this needs GPU</p><h2>Inference is memory movement, kernel efficiency, and tail latency.</h2></div>
+      <div class="gpu-grid">
+        <p>Generative serving repeatedly reads weights and caches state while executing tensor kernels. GPU memory bandwidth and tensor-core throughput can dominate both throughput and the p99 latency that users experience.</p>
+        <div class="gpu-facts"><b>Model scale</b><span>Weight footprint and KV-cache pressure</span><b>Precision</b><span>fp16 and int8 speed/memory tradeoffs</span><b>Batch shape</b><span>GPU utilization and queueing behavior</span></div>
+      </div>
+    </section>
+
+    <section class="content quickstart">
+      <div class="section-heading"><p>03 / Quickstart</p><h2>From clone to benchmark.</h2></div>
+      <div class="code-grid">
+        <pre><code><span># CPU-safe verification</span>
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python inference/benchmark.py --device cpu</code></pre>
+        <pre><code><span># Nebius GPU instance</span>
+./run.sh --model &lt;hf-model-id&gt; \
+  --model-size 7B \
+  --quantization fp16 \
+  --device cuda \
+  --batch-size 8</code></pre>
+      </div>
+    </section>
+
+    <section id="demo" class="content demo-section">
+      <div class="section-heading"><p>04 / Live dashboard demo</p><h2>Explore the visual layer.</h2></div>
+      <div class="demo-warning">SYNTHETIC DEMONSTRATION DATA — not measured on Nebius or any GPU.</div>
+      <iframe title="LLM benchmark sample dashboard" src="dashboard.html"></iframe>
+    </section>
+
+    <section id="builder" class="content builder">
+      <div class="section-heading"><p>05 / About the builder</p><h2>Building systems for accelerated intelligence.</h2></div>
+      <div class="builder-card"><div class="avatar">TO</div><div><h3>Tide Obsidian</h3><p>Focus: <b>AI infrastructure</b>, <b>LLMs</b>, and <b>GPU workloads</b>. Interested in turning GPU systems into measurable, reproducible serving products.</p><a href="https://github.com/tideobsidian23495">github.com/tideobsidian23495 ↗</a></div></div>
+    </section>
+  </main>
+  <footer><span>LLM Inference Benchmark &amp; Serving Lab</span><a href="https://github.com/tideobsidian23495/nebius-llm-bench">GitHub repository ↗</a></footer>
+</body>
+</html>
